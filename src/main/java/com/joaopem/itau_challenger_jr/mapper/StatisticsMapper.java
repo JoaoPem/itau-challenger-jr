@@ -8,5 +8,13 @@ import java.util.DoubleSummaryStatistics;
 @Mapper(componentModel = "spring")
 public interface StatisticsMapper {
 
-    StatisticsResponseDTO toDTO(DoubleSummaryStatistics doubleSummaryStatistics);
+    default StatisticsResponseDTO toDTO(DoubleSummaryStatistics doubleSummaryStatistics) {
+        return new StatisticsResponseDTO(
+                doubleSummaryStatistics.getCount(),
+                doubleSummaryStatistics.getSum(),
+                doubleSummaryStatistics.getAverage(),
+                doubleSummaryStatistics.getMin(),
+                doubleSummaryStatistics.getMax()
+        );
+    }
 }

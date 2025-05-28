@@ -25,5 +25,6 @@ public class StatisticsService {
                 .summaryStatistics();
 
         return statisticsMapper.toDTO(doubleSummaryStatistics);
+
     }
 }
