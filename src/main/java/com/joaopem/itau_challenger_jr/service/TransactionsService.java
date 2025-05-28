@@ -7,6 +7,8 @@ import com.joaopem.itau_challenger_jr.validator.TransactionsValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -26,6 +28,14 @@ public class TransactionsService {
 
     public void clearTransactions(){
         transactions.clear();
+    }
+
+    public List<Transaction> getRecentTransactions(){
+        OffsetDateTime currentDateTime = OffsetDateTime.now();
+
+        return transactions.stream().filter(
+                transaction -> transaction.getDateTime().isAfter(currentDateTime.minusSeconds(60))
+        ).toList();
     }
 
 }

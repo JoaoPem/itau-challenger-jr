@@ -10,8 +10,15 @@ import java.time.OffsetDateTime;
 public class TransactionsValidator {
 
     public void validateTransaction(TransactionsRequestDTO transactionsRequestDTO){
+        validateNull(transactionsRequestDTO);
         validatePositiveValue(transactionsRequestDTO);
         validateDateNotInFuture(transactionsRequestDTO);
+    }
+
+    private void validateNull(TransactionsRequestDTO transactionsRequestDTO){
+        if (transactionsRequestDTO.value() == null || transactionsRequestDTO.dateTime() == null){
+            throw new ValidateTransactionException("Value cannot be null");
+        }
     }
 
     private void validatePositiveValue(TransactionsRequestDTO transactionsRequestDTO){
